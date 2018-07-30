@@ -3,6 +3,8 @@ server:
 
 
 spring:
+  thymeleaf:
+    mode: HTML5
   datasource:
     name: exercise
     type: com.alibaba.druid.pool.DruidDataSource
