@@ -12,7 +12,7 @@ public class RepertoryController {
     private RepertoryService repertoryService;
     @ResponseBody
     @GetMapping("/all")
-    public Object findAllUser(
+    public Object findAllRepertory(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")
