@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface RepertoryDao {
     List<Repertory> selectAllRepertory();
+    List<Repertory> queryRepertory(String condition);
 
+    int addRepertory(Repertory repertory);
 }
