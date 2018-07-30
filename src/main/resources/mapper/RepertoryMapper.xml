@@ -9,4 +9,10 @@
     <select id="selectAllRepertory" resultMap="repertoryList">
         select *from repertory
     </select>
+    <select id="queryRepertory" parameterType="string" resultMap="repertoryList">
+        select *from repertory where rname like "%"#{condition}"%" or raddress like "%"#{condition}"%"
+    </select>
+    <insert id="addRepertory" parameterType="repertory">
+        insert into repertory(rname,raddress) values (#{rname},#{raddress})
+    </insert>
 </mapper>

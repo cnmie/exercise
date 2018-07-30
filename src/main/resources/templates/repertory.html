@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>仓库地址</title>
+</head>
+<body>
+<div>
+    <div>
+        <form th:action="@{/repertory/query?condition=}" th:method="GET">
+            <input th:name="condition">
+            <button type="submit">条件查询</button>
+        </form>
+    </div>
+    <div>
+        <form action="#" th:action="@{/repertory/add}"  th:method="POST">
+
+            <p>仓库名称：<input type="text"  th:name="rname"/></p>
+            <p>仓库地址：<input type="text"  th:name="raddress"/></p>
+            <button type="submit">增加字段</button>
+        </form>
+    </div>
+    <div>
+        <ul  th:each="repertory : ${repertories.list}">
+
+            <li th:text="${repertory.rid}">Onions</li>
+
+            <li th:text="${repertory.rname}">test@test.com.cn</li>
+
+            <li th:text="${repertory.raddress}">yes</li>
+
+        </ul>
+        <ul class="pagination m-b-5 pull-right">
+            <li th:if="${repertories.hasPreviousPage}"><a
+                    th:href="@{'/repertory/'+${type}+'pageNum='+${repertories.prePage}}"
+                    aria-label="Previous"> <i class="fa fa-angle-left"></i>&nbsp;上一页
+            </a></li>
+
+            <th:block th:each="nav : ${repertories.navigatepageNums}">
+                <li th:class="${nav==repertories.pageNum}?'active':''"><a
+                        th:href="@{'/repertory/'+${type}+'pageNum='+${nav}}"
+                        th:text="${nav}"></a></li>
+            </th:block>
+
+            <th:block th:if="${repertories.hasNextPage}">
+                <li><a
+                        th:href="@{'/repertory/'+${type}+'pageNum='+${repertories.nextPage}}"
+                        aria-label="Next"> 下一页&nbsp;<i class="fa fa-angle-right"></i>
+                </a></li>
+            </th:block>
+
+            <li><span th:text="'共'+${repertories.pages}+'页'"></span></li>
+        </ul>
+        <a th:href="${#httpServletRequest.requestURI}">Current url</a>
+    </div>
+</div>
+</body>
+</html>

@@ -13,3 +13,8 @@ CREATE TABLE `goods` (
 
 insert into repertory values (1,'0001','beijing');
 insert into repertory values (2,'0002','shanghai');
+insert into repertory values (3,'0003','shanghai');
+insert into repertory values (4,'0004','shanghai');
+insert into repertory values (5,'0005','shanghai');
+insert into repertory values (6,'0006','shanghai');
+insert into repertory values (7,'0007','shanghai');

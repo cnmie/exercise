@@ -19,4 +19,17 @@ public class RepertoryServiceImpl implements RepertoryService{
         PageInfo<Repertory> result=new PageInfo(repertoryList);
         return result;
     }
+
+    @Override
+    public PageInfo<Repertory> queryRepertory(String condition,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Repertory> repertoryList=repertoryDao.queryRepertory(condition);
+        PageInfo<Repertory> result=new PageInfo(repertoryList);
+        return result;
+    }
+
+    @Override
+    public int addRepertory(Repertory repertory) {
+        return repertoryDao.addRepertory(repertory);
+    }
 }
