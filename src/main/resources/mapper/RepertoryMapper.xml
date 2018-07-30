@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exercise.demo.dao.RepertoryDao" >
+    <resultMap type="com.exercise.demo.model.Repertory" id="repertoryList">
+        <result column="rid" property="rid"/>
+        <result column="raddress"  property="raddress"/>
+        <result column="rname"  property="rname"/>
+    </resultMap>
+    <select id="selectAllRepertory" resultMap="repertoryList">
+        select *from repertory
+    </select>
+</mapper>
