@@ -49,8 +49,21 @@ public class RepertoryController {
     @RequestMapping(path = {"/add"}, method = {RequestMethod.POST})
     public String addRepertory(@Param("rname")String rname,@Param("raddress")String raddress){
         System.out.println(rname);
+
         Repertory repertory=new Repertory(-1,rname,raddress);
         repertoryService.addRepertory(repertory);
         return "success";
     }
+    //修改仓库信息
+    @RequestMapping(path = {"/update"}, method = {RequestMethod.POST})
+    public String updateRepertory(@Param("rid")int rid,
+                                  @Param("newrname")String newrname,
+                                  @Param("newraddress")String newraddress){
+        System.out.println(rid);
+
+        Repertory repertory=new Repertory(rid,newrname,newraddress);
+        repertoryService.updateRepertory(repertory);
+        return "redirect:all";
+    }
+
 }

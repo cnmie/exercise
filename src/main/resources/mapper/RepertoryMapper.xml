@@ -15,4 +15,7 @@
     <insert id="addRepertory" parameterType="repertory">
         insert into repertory(rname,raddress) values (#{rname},#{raddress})
     </insert>
+    <update id="updateRepertory" parameterType="repertory">
+        update repertory set rname =#{rname} ,raddress=#{raddress} where rid=#{rid}
+    </update>
 </mapper>
