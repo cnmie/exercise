@@ -32,4 +32,9 @@ public class RepertoryServiceImpl implements RepertoryService{
     public int addRepertory(Repertory repertory) {
         return repertoryDao.addRepertory(repertory);
     }
+
+    @Override
+    public int updateRepertory(Repertory repertory) {
+        return repertoryDao.updateRepertory(repertory);
+    }
 }

@@ -9,4 +9,6 @@ public interface RepertoryService {
     public PageInfo<Repertory> queryRepertory(String condition,int pageNum, int pageSize);
 
     public int addRepertory(Repertory repertory);
+
+    public int updateRepertory(Repertory repertory);
 }

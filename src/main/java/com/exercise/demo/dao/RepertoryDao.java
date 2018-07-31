@@ -9,4 +9,6 @@ public interface RepertoryDao {
     List<Repertory> queryRepertory(String condition);
 
     int addRepertory(Repertory repertory);
+
+    int updateRepertory(Repertory repertory);
 }
