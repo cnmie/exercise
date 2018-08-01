@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>货物进销管理系统</title>
+    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" >
+</head>
+<body>
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <strong>Sku管理</strong>
+        <small>货物进销管理系统</small>
+    </div>
+</header>
+<div class="am-cf admin-main">
+    <!--左侧导航栏-->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list">
+                <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
+                <li><a href="/repertory/all"><span class="am-icon-table"></span> 仓库管理</a></li>
+                <li><a href="/goods/all"><span class="am-icon-table"></span> 商品管理</a></li>
+                <li><a href="/sku/all"><span class="am-icon-table"></span> sku管理</a></li>
+            </ul>
+
+
+        </div>
+    </div>
+    <!--右侧正文-->
+    <div class="admin-content">
+        <div class="am-u-sm-12 am-u-md-6">
+            <form th:action="@{/sku/query?condition=}" th:method="GET">
+                <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
+                <button type="submit" class="am-btn am-btn-default">条件查询</button>
+            </form>
+        </div>
+        <div class="am-u-sm-12 am-u-md-6">
+            <form action="#" th:action="@{/sku/add}" th:method="POST">
+                <input th:type="text" th:name="gid" name="gid" th:placeholder="商品编号"/>
+                <input th:type="text" th:name="scolor" name="scolor" th:placeholder="商品颜色"/>
+                <input th:type="text" th:name="ssize" name="ssize" th:placeholder="商品大小"/>
+                <input th:type="text" th:name="sstyle" name="sstyle" th:placeholder="商品型号"/>
+                <button type="submit" class="am-btn am-btn-default">新增sku</button>
+            </form>
+        </div>
+        <table class="am-table am-table-striped am-table-hover table-main">
+            <tr>
+                <th>Sku编号</th>
+                <th>商品编号</th>
+                <th>商品颜色</th>
+                <th>商品大小</th>
+                <th>商品型号</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="sku : ${skus.list}">
+                <td th:text="${sku.gid}"></td>
+                <td th:text="${sku.sid}"></td>
+                <td th:text="${sku.scolor}"></td>
+                <td th:text="${sku.ssize}"></td>
+                <td th:text="${sku.sstyle}"></td>
+                <td>
+                    <p>
+                        <button th:onclick="'javascript:showBox('+${sku.sid}+')'" class="am-btn am-btn-default">
+                            修改
+                        </button>
+                    </p>
+                    <form action="#" th:action="@{/sku/update?sid=}+${sku.sid}" th:method="POST">
+                        <p><input th:type="text" style="display: none" th:id="'color'+${sku.sid}"
+                                  th:name="newscolor" th:placeholder="新的颜色"/></p>
+                        <p><input th:type="text" style="display: none" th:id="'size'+${sku.sid}"
+                                  th:name="newssize" th:placeholder="新的大小"/></p>
+                        <p><input th:type="text" style="display: none" th:id="'style'+${sku.sid}"
+                                  th:name="newsstyle" th:placeholder="新的类型"/></p>
+                        <p>
+                            <button th:type="submit" style="display: none" th:id="'button'+${sku.sid}"
+                                    class="am-btn am-btn-default">确认修改
+                            </button>
+                        </p>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <div class="am-u-sm-12 am-u-md-6">
+            <button th:if="${skus.hasPreviousPage}" class="am-btn am-btn-default"><a
+                    th:href="@{'/sku/'+${type}+'pageNum='+${skus.prePage}}"
+                    aria-label="Previous"> &nbsp;上一页
+            </a></button>
+
+            <th:block th:each="nav : ${skus.navigatepageNums}">
+                    <span th:class="${nav==skus.pageNum}?'active':''"><a
+                            th:href="@{'/sku/'+${type}+'pageNum='+${nav}}"
+                            th:text="${nav}"></a></span>
+            </th:block>
+
+            <button th:block th:if="${skus.hasNextPage}" class="am-btn am-btn-default">
+                <a th:href="@{'/sku/'+${type}+'pageNum='+${skus.nextPage}}"
+                   aria-label="Next"> 下一页&nbsp;<i class="fa fa-angle-right"></i>
+                </a></button>
+
+            <span th:text="'共'+${skus.pages}+'页'"></span>
+        </div>
+    </div>
+</div>
+<script src="/static/jquery-3.3.1.min.js" th:src="@{/jquery-3.3.1.min.js}"></script>
+<script th:inline="javascript">
+    function showBox(sid) {
+        $("#color" + sid).toggle();
+        $("#size" + sid).toggle();
+        $("#style" + sid).toggle();
+    }
+</script>
+</body>
+</html>

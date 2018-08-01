@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.exercise.demo.dao.SkuDao" >
-
+    <resultMap type="com.exercise.demo.model.Sku" id="skuList">
+        <result column="gid" property="gid"/>
+        <result column="scolor" property="scolor"/>
+        <result column="ssize"  property="ssize"/>
+        <result column="sstyle"  property="sstyle"/>
+    </resultMap>
+        <select id="selectAllSku" resultMap="skuList">
+        select *from sku
+    </select>
     <insert id="addSku" parameterType="sku">
-        insert into sku(scolor,ssize,sstyle) values (#{scolor},#{ssize},#{sstyle})
+        insert into sku(gid,scolor,ssize,sstyle) values (#{gid},#{scolor},#{ssize},#{sstyle})
     </insert>
 </mapper>
