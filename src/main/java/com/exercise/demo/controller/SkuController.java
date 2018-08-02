@@ -23,7 +23,7 @@ public class SkuController {
     public String findAllSku(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "5")
+            @RequestParam(name = "pageSize", required = false, defaultValue = "6")
                     int pageSize, HttpServletRequest request, HttpServletResponse response){
         PageInfo<Sku> skus=skuService.findAllSku(pageNum,pageSize);
         request.setAttribute("skus",skus);
@@ -38,7 +38,7 @@ public class SkuController {
 
         Sku sku=new Sku(-1,gid,scolor,ssize,sstyle);
         skuService.addSku(sku);
-        return "success";
+        return "redirect:all";
     }
     //修改商品Sku
     @RequestMapping(path = {"/update"}, method = {RequestMethod.POST})
@@ -56,7 +56,7 @@ public class SkuController {
     public String querySku(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1")
                     int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "5")
+            @RequestParam(name = "pageSize", required = false, defaultValue = "6")
                     int pageSize, HttpServletRequest request, HttpServletResponse response){
         String condition=request.getParameter("condition");
         PageInfo<Sku> skus= skuService.querySku(condition,pageNum,pageSize);

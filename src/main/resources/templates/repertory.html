@@ -21,21 +21,47 @@
             <ul class="am-list admin-sidebar-list">
                 <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
                 <li><a href="/repertory/all"><span class="am-icon-table"></span> 仓库管理</a></li>
-                <li><a href="/goods/all"><span class="am-icon-table"></span> 商品管理</a></li>
-                <li><a href="/sku/all"><span class="am-icon-table"></span> sku管理</a></li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-table"></span> 商品管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                        <li><a href="/goods/all"><span class="am-icon-table"></span> 货物-仓库表</a></li>
+                        <li><a href="/sku/all"><span class="am-icon-table"></span> sku管理</a></li>
+                    </ul>
+                </li>
+
             </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>薛浩 占恒 吴政 周满</p>
+                </div>
+            </div>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-tag"></span> wiki</p>
+                    <p>Test</p>
+                </div>
+            </div>
 
 
         </div>
     </div>
     <!--右侧正文-->
     <div class="admin-content">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">仓库地址表</strong><small>Tables</small>
+            </div>
+        </div>
+        <hr>
         <div class="am-u-sm-12 am-u-md-6">
             <form th:action="@{/repertory/query?condition=}" th:method="GET">
                 <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
                 <button type="submit" class="am-btn am-btn-default">条件查询</button>
             </form>
         </div>
+        <hr>
         <div class="am-u-sm-12 am-u-md-6">
             <form action="#" th:action="@{/repertory/add}" th:method="POST">
                 <input th:type="text" th:name="rname" name="rname" th:placeholder="仓库名称"/>
@@ -61,19 +87,18 @@
                         </button>
                     </p>
                     <form action="#" th:action="@{/repertory/update?rid=}+${repertory.rid}" th:method="POST">
-                        <p><input th:type="text" style="display: none" th:id="'name'+${repertory.rid}"
-                                  th:name="newrname" th:placeholder="新的名字"/></p>
-                        <p><input th:type="text" style="display: none" th:id="'address'+${repertory.rid}"
-                                  th:name="newraddress" th:placeholder="新的地址"/></p>
-                        <p>
-                            <button th:type="submit" style="display: none" th:id="'button'+${repertory.rid}"
-                                    class="am-btn am-btn-default">确认修改
-                            </button>
-                        </p>
+                        <p style="display: none" th:id="'name'+${repertory.rid}">名称 <input th:type="text"
+                                  th:name="newrname" th:value="${repertory.rname}"/></p>
+                        <p style="display: none" th:id="'address'+${repertory.rid}">地址 <input th:type="text"
+                                  th:name="newraddress"  th:value="${repertory.raddress}"/></p>
+                        <button th:type="submit" style="display: none" th:id="'button'+${repertory.rid}"
+                                class="am-btn am-btn-default">确认修改
+                        </button>
                     </form>
                 </td>
             </tr>
         </table>
+
         <div class="am-u-sm-12 am-u-md-6">
             <button th:if="${repertories.hasPreviousPage}" class="am-btn am-btn-default"><a
                     th:href="@{'/repertory/'+${type}+'pageNum='+${repertories.prePage}}"
@@ -93,6 +118,7 @@
 
             <span th:text="'共'+${repertories.pages}+'页'"></span>
         </div>
+        <hr>
     </div>
 </div>
 <script src="/static/jquery-3.3.1.min.js" th:src="@{/jquery-3.3.1.min.js}"></script>

@@ -18,16 +18,5 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
     //查询全部
-    @RequestMapping(path = {"/all"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String findAllRepertory(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize,
-            HttpServletRequest request,
-            HttpServletResponse response){
-        PageInfo<Goods> allGoods=goodsService.findAllGoods(pageNum,pageSize);
-        request.setAttribute("allGoods",allGoods);
-        String type="all?";
-        request.setAttribute("type",type);
-        return "goods";
-    }
+    
 }

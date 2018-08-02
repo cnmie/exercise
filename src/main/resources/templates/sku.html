@@ -20,25 +20,51 @@
             <ul class="am-list admin-sidebar-list">
                 <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
                 <li><a href="/repertory/all"><span class="am-icon-table"></span> 仓库管理</a></li>
-                <li><a href="/goods/all"><span class="am-icon-table"></span> 商品管理</a></li>
-                <li><a href="/sku/all"><span class="am-icon-table"></span> sku管理</a></li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-table"></span> 商品管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                        <li><a href="/goods/all"><span class="am-icon-table"></span> 货物-仓库表</a></li>
+                        <li><a href="/sku/all"><span class="am-icon-table"></span> sku管理</a></li>
+                    </ul>
+                </li>
+
             </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>薛浩 占恒 吴政 周满</p>
+                </div>
+            </div>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-tag"></span> wiki</p>
+                    <p>Test</p>
+                </div>
+            </div>
 
 
         </div>
     </div>
     <!--右侧正文-->
     <div class="admin-content">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">货物SKU表</strong><small>Tables</small>
+            </div>
+        </div>
+        <hr>
         <div class="am-u-sm-12 am-u-md-6">
             <form th:action="@{/sku/query?condition=}" th:method="GET">
                 <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
                 <button type="submit" class="am-btn am-btn-default">条件查询</button>
             </form>
         </div>
+        <hr>
         <div class="am-u-sm-12 am-u-md-6">
             <form action="#" th:action="@{/sku/add}" th:method="POST">
                 <input th:type="text" th:name="gid" name="gid" th:placeholder="商品编号"/>
-                <input th:type="text" th:name="scolor" name="scolor" th:placeholder="商品颜色"/>
+                <input th:type="text" th:name="scolor" name="scolor" th:placeholder="商品颜色"/><br>
                 <input th:type="text" th:name="ssize" name="ssize" th:placeholder="商品大小"/>
                 <input th:type="text" th:name="sstyle" name="sstyle" th:placeholder="商品型号"/>
                 <button type="submit" class="am-btn am-btn-default">新增sku</button>
@@ -54,29 +80,28 @@
                 <th>操作</th>
             </tr>
             <tr th:each="sku : ${skus.list}">
-                <td th:text="${sku.gid}"></td>
                 <td th:text="${sku.sid}"></td>
+                <td th:text="${sku.gid}"></td>
                 <td th:text="${sku.scolor}"></td>
                 <td th:text="${sku.ssize}"></td>
                 <td th:text="${sku.sstyle}"></td>
                 <td>
                     <p>
-                        <button th:onclick="'javascript:showBox('+${sku.sid}+')'" class="am-btn am-btn-default">
+                        <button th:id="update-button" th:onclick="'javascript:showBox('+${sku.sid}+')'" class="am-btn am-btn-default">
                             修改
                         </button>
                     </p>
                     <form action="#" th:action="@{/sku/update?sid=}+${sku.sid}" th:method="POST">
-                        <p><input th:type="text" style="display: none" th:id="'color'+${sku.sid}"
-                                  th:name="newscolor" th:placeholder="新的颜色"/></p>
-                        <p><input th:type="text" style="display: none" th:id="'size'+${sku.sid}"
-                                  th:name="newssize" th:placeholder="新的大小"/></p>
-                        <p><input th:type="text" style="display: none" th:id="'style'+${sku.sid}"
-                                  th:name="newsstyle" th:placeholder="新的类型"/></p>
-                        <p>
-                            <button th:type="submit" style="display: none" th:id="'button'+${sku.sid}"
-                                    class="am-btn am-btn-default">确认修改
-                            </button>
-                        </p>
+                        <p th:id="'color'+${sku.sid}" style="display: none">颜色 <input th:type="text"
+                                  th:name="newscolor" th:value="${sku.scolor}"/></p>
+                        <p th:id="'size'+${sku.sid}" style="display: none">大小 <input th:type="text"
+                                  th:name="newssize" th:value="${sku.ssize}"/></p>
+                        <p th:id="'style'+${sku.sid}" style="display: none">型号 <input th:type="text"
+                                  th:name="newsstyle" th:value="${sku.sstyle}"/></p>
+                        <button th:type="submit" style="display: none" th:id="'button'+${sku.sid}"
+                                class="am-btn am-btn-default">确认修改
+                        </button>
+
                     </form>
                 </td>
             </tr>
@@ -100,6 +125,7 @@
 
             <span th:text="'共'+${skus.pages}+'页'"></span>
         </div>
+        <hr>
     </div>
 </div>
 <script src="/static/jquery-3.3.1.min.js" th:src="@{/jquery-3.3.1.min.js}"></script>
