@@ -8,4 +8,8 @@ public interface SkuDao {
     int addSku(Sku sku);
 
     List<Sku> selectAllSku();
+
+    int updateSku(Sku sku);
+
+    List<Sku> querySku(String condition);
 }

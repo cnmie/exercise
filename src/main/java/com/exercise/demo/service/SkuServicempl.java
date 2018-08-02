@@ -20,6 +20,20 @@ public class SkuServicempl implements SkuService{
         PageInfo<Sku> result=new PageInfo(skuList);
         return result;
     }
+
+    @Override
+    public int updateSku(Sku sku) {
+        return skuDao.updateSku(sku);
+    }
+
+    @Override
+    public PageInfo<Sku> querySku(String condition,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Sku> repertoryList=skuDao.querySku(condition);
+        PageInfo<Sku> result=new PageInfo(repertoryList);
+        return result;
+    }
+
     @Override
     public int addSku(Sku sku){
         return skuDao.addSku(sku);

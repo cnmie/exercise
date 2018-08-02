@@ -40,4 +40,29 @@ public class SkuController {
         skuService.addSku(sku);
         return "success";
     }
+    //修改商品Sku
+    @RequestMapping(path = {"/update"}, method = {RequestMethod.POST})
+    public String updateSku(@Param("sid")int sid,
+                                  @Param("newscolor")String newscolor,
+                                  @Param("newssize")String newssize,
+                                  @Param("newsstyle")String newsstyle){
+        System.out.println(sid);
+        Sku sku=new Sku(sid,-1,newscolor,newssize,newsstyle);
+        skuService.updateSku(sku);
+        return "redirect:all";
+    }
+    //按条件查询
+    @RequestMapping(path = {"/query"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String querySku(
+            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
+                    int pageNum,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "5")
+                    int pageSize, HttpServletRequest request, HttpServletResponse response){
+        String condition=request.getParameter("condition");
+        PageInfo<Sku> skus= skuService.querySku(condition,pageNum,pageSize);
+        request.setAttribute("skus",skus);
+        String type="query?condition="+condition+"&";
+        request.setAttribute("type",type);
+        return "sku";
+    }
 }

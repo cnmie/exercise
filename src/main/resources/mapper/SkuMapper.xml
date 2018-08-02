@@ -13,4 +13,13 @@
     <insert id="addSku" parameterType="sku">
         insert into sku(gid,scolor,ssize,sstyle) values (#{gid},#{scolor},#{ssize},#{sstyle})
     </insert>
+    <update id="updateSku" parameterType="sku">
+        update sku set scolor =#{scolor} ,ssize=#{ssize} ,sstyle=#{sstyle} where sid=#{sid}
+    </update>
+    <select id="querySku" parameterType="string" resultMap="skuList">
+        select *from sku where gid like "%"#{condition}"%"
+        or scolor like "%"#{condition}"%"
+        or ssize like "%"#{condition}"%"
+        or sstyle like "%"#{condition}"%"
+    </select>
 </mapper>
