@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exercise.demo.dao.RelationDao" >
+    <resultMap type="com.exercise.demo.model.Goods" id="relationList">
+        <id column="gid" property="gid"/>
+        <result column="gname"  property="gname"/>
+        <collection property="relations" ofType="com.exercise.demo.model.Relation">
+            <id column="relationid" property="relationid"/>
+            <result column="rid"  property="rid"/>
+            <result column="gid"  property="gid"/>
+            <association property="repertory" javaType="com.exercise.demo.model.Repertory">
+                <id column="rid" property="rid"/>
+                <result column="rname"  property="rname"/>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="selectAllRelation" resultMap="relationList">
+        select goods.gid,goods.gname,repertory.rid,repertory.rname,relation.relationid
+        from goods join relation on goods.gid=relation.gid
+        join repertory on repertory.rid=relation.rid
+</select>
+
+    <select id="queryRelation" resultMap="relationList" parameterType="string">
+        select goods.gid,goods.gname,repertory.rid,repertory.rname,relation.relationid
+        from goods join relation on goods.gid=relation.gid
+        join repertory on repertory.rid=relation.rid where gname like "%"#{condition}"%"
+        or rname like "%"#{condition}"%"
+</select>
+</mapper>

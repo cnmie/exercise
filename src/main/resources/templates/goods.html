@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>货物信息</title>
-    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/admin.css}" >
+    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <strong>商品管理</strong> <small>货物进销管理系统</small>
+        <strong>商品管理</strong>
+        <small>货物进销管理系统</small>
     </div>
 </header>
 <div class="am-cf admin-main">
@@ -19,14 +20,84 @@
             <ul class="am-list admin-sidebar-list">
                 <li><a href="/index"><span class="am-icon-home"></span> 首页</a></li>
                 <li><a href="/repertory/all"><span class="am-icon-table"></span> 仓库管理</a></li>
-                <li><a href="/goods/all"><span class="am-icon-table"></span> 商品管理</a></li>
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-table"></span> 商品管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                        <li><a href="/goods/all"><span class="am-icon-table"></span> 货物-仓库表</a></li>
+                    </ul>
+                </li>
             </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>薛浩 占恒 吴政 周满</p>
+                </div>
+            </div>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-tag"></span> wiki</p>
+                    <p>Test</p>
+                </div>
+            </div>
 
 
         </div>
     </div>
     <!--右侧正文-->
-    <div class="admin-content"></div>
+    <div class="admin-content">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">货物-仓库表</strong><small>Tables</small>
+            </div>
+        </div>
+        <hr>
+
+        <div class="am-u-sm-12 am-u-md-6">
+            <form th:action="@{/goods/query?condition=}" th:method="GET">
+                <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
+                <button type="submit" class="am-btn am-btn-default">条件查询</button>
+            </form>
+        </div>
+        <table class="am-table am-table-striped am-table-hover table-main">
+            <tr>
+                <th>关系编号</th>
+                <th>货物编号</th>
+                <th>货物名称</th>
+                <th>仓库编号</th>
+                <th>仓库地址</th>
+            </tr>
+            <span th:each="relation : ${relations.list}">
+            <tr th:each="goods : ${relation.relations}">
+                <td th:text="${goods.relationid}"></td>
+                <td th:text="${relation.gid}"></td>
+                <td th:text="${relation.gname}"></td>
+                <td th:text="${goods.rid}"></td>
+                <td th:text="${goods.repertory.rname}"></td>
+            </tr>
+            </span>
+        </table>
+        <div class="am-u-sm-12 am-u-md-6">
+            <button th:if="${relations.hasPreviousPage}" class="am-btn am-btn-default"><a
+                    th:href="@{'/goods/'+${type}+'pageNum='+${relations.prePage}}"
+                    aria-label="Previous"> &nbsp;上一页
+            </a></button>
+
+            <th:block th:each="nav : ${relations.navigatepageNums}">
+                    <span th:class="${nav==relations.pageNum}?'active':''"><a
+                            th:href="@{'/goods/'+${type}+'pageNum='+${nav}}"
+                            th:text="${nav}"></a></span>
+            </th:block>
+
+            <button th:block th:if="${relations.hasNextPage}" class="am-btn am-btn-default">
+                <a th:href="@{'/goods/'+${type}+'pageNum='+${relations.nextPage}}"
+                   aria-label="Next"> 下一页&nbsp;<i class="fa fa-angle-right"></i>
+                </a></button>
+
+            <span th:text="'共'+${relations.pages}+'页'"></span>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

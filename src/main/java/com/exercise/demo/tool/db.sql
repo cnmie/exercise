@@ -32,3 +32,15 @@ insert into repertory values (4,'0004','shanghai');
 insert into repertory values (5,'0005','shanghai');
 insert into repertory values (6,'0006','shanghai');
 insert into repertory values (7,'0007','shanghai');
+
+insert into goods values (1,'type1');
+insert into goods values (2,'type2');
+insert into goods values (3,'type3');
+insert into goods values (4,'type4');
+insert into goods values (5,'type5');
+
+insert into relation values (1,1,1);
+insert into relation values (2,1,2);
+insert into relation values (3,2,3);
+insert into relation values (4,2,4);
+insert into relation values (5,3,5);

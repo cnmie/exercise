@@ -29,6 +29,12 @@
     </div>
     <!--右侧正文-->
     <div class="admin-content">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">仓库地址表</strong><small>Tables</small>
+            </div>
+        </div>
+        <hr>
         <div class="am-u-sm-12 am-u-md-6">
             <form th:action="@{/repertory/query?condition=}" th:method="GET">
                 <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
@@ -92,6 +98,7 @@
 
             <span th:text="'共'+${repertories.pages}+'页'"></span>
         </div>
+        <hr>
     </div>
 </div>
 <script src="/static/jquery-3.3.1.min.js" th:src="@{/jquery-3.3.1.min.js}"></script>

@@ -18,7 +18,7 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
     //查询全部
-    @RequestMapping(path = {"/all"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = {"/allItem"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String findAllRepertory(
             @RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize,

@@ -1,13 +1,14 @@
 package com.exercise.demo.model;
 
-import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
-public class Repertory {
+public class Repertory implements Serializable {
     private int rid;
-    @NotEmpty(message="仓库名不能为空")
     private String rname;
-    @NotEmpty(message="地址不能为空")
     private String raddress;
+
+    public Repertory() {
+    }
 
     public int getRid() {
         return rid;
