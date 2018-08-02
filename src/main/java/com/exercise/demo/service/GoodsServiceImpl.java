@@ -3,6 +3,7 @@ package com.exercise.demo.service;
 import com.exercise.demo.dao.GoodsDao;
 import com.exercise.demo.model.Goods;
 import com.exercise.demo.model.Repertory;
+import com.exercise.demo.model.Sku;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,5 @@ public class GoodsServiceImpl implements GoodsService{
         PageInfo<Goods> result=new PageInfo(goodsList);
         return result;
     }
+
 }

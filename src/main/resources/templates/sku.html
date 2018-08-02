@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>货物进销管理系统</title>
-    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" >
 </head>
 <body>
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
-        <strong>仓库管理</strong>
+        <strong>Sku管理</strong>
         <small>货物进销管理系统</small>
     </div>
 </header>
-<!--  -->
 <div class="am-cf admin-main">
     <!--左侧导航栏-->
     <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
@@ -51,82 +50,91 @@
     <div class="admin-content">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">仓库地址表</strong><small>Tables</small>
+                <strong class="am-text-primary am-text-lg">货物SKU表</strong><small>Tables</small>
             </div>
         </div>
         <hr>
         <div class="am-u-sm-12 am-u-md-6">
-            <form th:action="@{/repertory/query?condition=}" th:method="GET">
+            <form th:action="@{/sku/query?condition=}" th:method="GET">
                 <input th:name="condition" th:type="text" th:placeholder="请输入关键字">
                 <button type="submit" class="am-btn am-btn-default">条件查询</button>
             </form>
         </div>
         <hr>
         <div class="am-u-sm-12 am-u-md-6">
-            <form action="#" th:action="@{/repertory/add}" th:method="POST">
-                <input th:type="text" th:name="rname" name="rname" th:placeholder="仓库名称"/>
-                <input th:type="text" th:name="raddress" name="raddress" th:placeholder="仓库地址"/>
-                <button type="submit" class="am-btn am-btn-default">新增仓库</button>
+            <form action="#" th:action="@{/sku/add}" th:method="POST">
+                <input th:type="text" th:name="gid" name="gid" th:placeholder="商品编号"/>
+                <input th:type="text" th:name="scolor" name="scolor" th:placeholder="商品颜色"/><br>
+                <input th:type="text" th:name="ssize" name="ssize" th:placeholder="商品大小"/>
+                <input th:type="text" th:name="sstyle" name="sstyle" th:placeholder="商品型号"/>
+                <button type="submit" class="am-btn am-btn-default">新增sku</button>
             </form>
         </div>
         <table class="am-table am-table-striped am-table-hover table-main">
             <tr>
-                <th>仓库编号</th>
-                <th>仓库名称</th>
-                <th>仓库地址</th>
+                <th>Sku编号</th>
+                <th>商品编号</th>
+                <th>商品颜色</th>
+                <th>商品大小</th>
+                <th>商品型号</th>
                 <th>操作</th>
             </tr>
-            <tr th:each="repertory : ${repertories.list}">
-                <td th:text="${repertory.rid}"></td>
-                <td th:text="${repertory.rname}"></td>
-                <td th:text="${repertory.raddress}"></td>
+            <tr th:each="sku : ${skus.list}">
+                <td th:text="${sku.sid}"></td>
+                <td th:text="${sku.gid}"></td>
+                <td th:text="${sku.scolor}"></td>
+                <td th:text="${sku.ssize}"></td>
+                <td th:text="${sku.sstyle}"></td>
                 <td>
                     <p>
-                        <button th:onclick="'javascript:showBox('+${repertory.rid}+')'" class="am-btn am-btn-default">
+                        <button th:id="update-button" th:onclick="'javascript:showBox('+${sku.sid}+')'" class="am-btn am-btn-default">
                             修改
                         </button>
                     </p>
-                    <form action="#" th:action="@{/repertory/update?rid=}+${repertory.rid}" th:method="POST">
-                        <p style="display: none" th:id="'name'+${repertory.rid}">名称 <input th:type="text"
-                                  th:name="newrname" th:value="${repertory.rname}"/></p>
-                        <p style="display: none" th:id="'address'+${repertory.rid}">地址 <input th:type="text"
-                                  th:name="newraddress"  th:value="${repertory.raddress}"/></p>
-                        <button th:type="submit" style="display: none" th:id="'button'+${repertory.rid}"
+                    <form action="#" th:action="@{/sku/update?sid=}+${sku.sid}" th:method="POST">
+                        <p th:id="'color'+${sku.sid}" style="display: none">颜色 <input th:type="text"
+                                  th:name="newscolor" th:value="${sku.scolor}"/></p>
+                        <p th:id="'size'+${sku.sid}" style="display: none">大小 <input th:type="text"
+                                  th:name="newssize" th:value="${sku.ssize}"/></p>
+                        <p th:id="'style'+${sku.sid}" style="display: none">型号 <input th:type="text"
+                                  th:name="newsstyle" th:value="${sku.sstyle}"/></p>
+                        <button th:type="submit" style="display: none" th:id="'button'+${sku.sid}"
                                 class="am-btn am-btn-default">确认修改
                         </button>
+
                     </form>
                 </td>
             </tr>
         </table>
-
         <div class="am-u-sm-12 am-u-md-6">
-            <button th:if="${repertories.hasPreviousPage}" class="am-btn am-btn-default"><a
-                    th:href="@{'/repertory/'+${type}+'pageNum='+${repertories.prePage}}"
+            <button th:if="${skus.hasPreviousPage}" class="am-btn am-btn-default"><a
+                    th:href="@{'/sku/'+${type}+'pageNum='+${skus.prePage}}"
                     aria-label="Previous"> &nbsp;上一页
             </a></button>
 
-            <th:block th:each="nav : ${repertories.navigatepageNums}">
-                    <span th:class="${nav==repertories.pageNum}?'active':''"><a
-                            th:href="@{'/repertory/'+${type}+'pageNum='+${nav}}"
+            <th:block th:each="nav : ${skus.navigatepageNums}">
+                    <span th:class="${nav==skus.pageNum}?'active':''"><a
+                            th:href="@{'/sku/'+${type}+'pageNum='+${nav}}"
                             th:text="${nav}"></a></span>
             </th:block>
 
-            <button th:block th:if="${repertories.hasNextPage}" class="am-btn am-btn-default">
-                <a th:href="@{'/repertory/'+${type}+'pageNum='+${repertories.nextPage}}"
-                        aria-label="Next"> 下一页&nbsp;<i class="fa fa-angle-right"></i>
+            <button th:block th:if="${skus.hasNextPage}" class="am-btn am-btn-default">
+                <a th:href="@{'/sku/'+${type}+'pageNum='+${skus.nextPage}}"
+                   aria-label="Next"> 下一页&nbsp;<i class="fa fa-angle-right"></i>
                 </a></button>
 
-            <span th:text="'共'+${repertories.pages}+'页'"></span>
+            <span th:text="'共'+${skus.pages}+'页'"></span>
         </div>
         <hr>
     </div>
 </div>
 <script src="/static/jquery-3.3.1.min.js" th:src="@{/jquery-3.3.1.min.js}"></script>
 <script th:inline="javascript">
-    function showBox(rid) {
-        $("#name" + rid).toggle();
-        $("#address" + rid).toggle();
-        $("#button" + rid).toggle();
+    function showBox(sid) {
+        $("#color" + sid).toggle();
+        $("#size" + sid).toggle();
+        $("#style" + sid).toggle();
+        $("#button"+sid).toggle();
     }
 </script>
 </body>
