@@ -25,13 +25,14 @@ CREATE TABLE sku(
   sstyle varchar(50) NOT NULL,
   FOREIGN KEY(gid) REFERENCES goods(gid)
 )DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-insert into repertory values (1,'0001','beijing');
-insert into repertory values (2,'0002','shanghai');
-insert into repertory values (3,'0003','shanghai');
-insert into repertory values (4,'0004','shanghai');
-insert into repertory values (5,'0005','shanghai');
-insert into repertory values (6,'0006','shanghai');
-insert into repertory values (7,'0007','shanghai');
+
+insert into repertory values (1,'天猫一号仓','北京');
+insert into repertory values (2,'二号仓','上海');
+insert into repertory values (3,'三号仓','广州');
+insert into repertory values (4,'珠三角仓库','深圳');
+insert into repertory values (5,'山东仓','济南');
+insert into repertory values (6,'安徽集散','合肥');
+insert into repertory values (7,'江西集散','鹰潭');
 
 
 insert into relation values (1,1,1);
@@ -39,6 +40,8 @@ insert into relation values (2,1,2);
 insert into relation values (3,2,3);
 insert into relation values (4,2,4);
 insert into relation values (5,3,5);
+insert into relation values (6,4,6);
+insert into relation values (7,5,7);
 
 insert into goods values (1,'shirt');
 insert into goods values (2,'coat');
@@ -47,6 +50,7 @@ insert into goods values (4,'shirt');
 insert into goods values (5,'coat');
 insert into goods values (6,'sweater');
 insert into goods values (7,'sweater');
+
 insert into sku values (1,1,'red','XL','new-style1');
 insert into sku values (2,2,'green','XL','new-style2');
 insert into sku values (3,3,'yellow','XL','new-style3');
