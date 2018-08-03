@@ -27,9 +27,6 @@ public class RelationController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "5")
                     int pageSize, HttpServletRequest request, HttpServletResponse response){
         PageInfo<Goods> relations=relationService.findAllRelation(pageNum,pageSize);
-        List<Goods> goods=relations.getList();
-
-        System.out.println(goods.get(1).getRelations().get(1).getRepertory().getRname());
         request.setAttribute("relations",relations);
         String type="all?";
         request.setAttribute("type",type);
